@@ -42,7 +42,7 @@ public class ClientHandler extends Thread {
         }
         XmlRpcClient client = new XmlRpcClient();
         client.setConfig(config);
-        int gagnant;
+        int gagnant,a,b;
         String jeu_bot;
         int res_finale,x,y;
         while (true && !socket.isClosed()) {
@@ -63,10 +63,16 @@ public class ClientHandler extends Thread {
                     printWriter.flush();
                     jeu_bot = (String) client.execute("Calculator." + "choice_gen", new
                             Object[]{});
+                    b=Integer.parseInt(jeu_bot);
+                    jeu_bot=String.valueOf(b);
                     printWriter.println("choix bot= "+choix.get(jeu_bot));
                     printWriter.flush();
+                    System.out.println("choix bot"+jeu_bot);
+                    a=Integer.parseInt(jeu);
+
+                    System.out.println(a+" et "+b);
                     gagnant=(int) client.execute("Calculator." + "gagnant_det", new
-                            Object[]{jeu,jeu_bot});
+                            Object[]{a,b});
                     printWriter.println("le gagnant est"+gagnant);
                     printWriter.flush();
                     if(gagnant==1){

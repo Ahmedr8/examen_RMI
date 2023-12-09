@@ -8,7 +8,7 @@ public class JeuxImpl implements JeuxInterface {
 
     @Override
     public String choice_gen() {
-        int randomNumber = new Random().nextInt (10000);
+        int randomNumber = new Random().nextInt (3)+1;
         String number = String.format ("%04d", randomNumber);
         return number;
     }

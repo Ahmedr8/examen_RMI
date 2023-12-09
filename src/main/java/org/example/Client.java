@@ -25,8 +25,8 @@ public class Client {
             printWriter.println(str);
             printWriter.flush();
             if(str.equals("3")){
-
-                printWriter.flush();
+                res = bufferedReader.readLine();
+                System.out.println(res);
             }else if(str.equals("1")){
                 for (int i=1;i<=3;i++) {
                     res = bufferedReader.readLine();
