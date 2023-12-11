@@ -66,7 +66,7 @@ public class ClientHandler extends Thread{
         available_choices.put("3","Ciseaux ✂");
         String user_choice;
         String uuid = "";
-        System.out.println("Client a envoyé une requête:"+socket);
+
         XmlRpcClientConfigImpl config = new XmlRpcClientConfigImpl();
         try {
             config.setServerURL(new
@@ -123,6 +123,7 @@ public class ClientHandler extends Thread{
                                 }
                                 else
                                 {
+                                    System.out.println("RMI");
                                     if(game_stub != null){
                                        bot_choice = game_stub.choice_gen();
                                     }

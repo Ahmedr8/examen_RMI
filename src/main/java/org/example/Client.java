@@ -21,6 +21,11 @@ public class Client {
         String res;
         String middlewareOptions;
         int game_number;
+        int num=Integer.parseInt(bufferedReader.readLine());
+        if (num>=4){
+            String error=bufferedReader.readLine();
+            System.out.println(error);
+        }
         for(int i =  0 ; i < 3 ; i++){
             middlewareOptions = bufferedReader.readLine();
             System.out.println(middlewareOptions);
@@ -32,6 +37,7 @@ public class Client {
         printWriter.flush();
         String strServer;
         while (!str.equals("3")){
+
             for (int i=0;i<4;i++)
             {
                 strServer = bufferedReader.readLine();
