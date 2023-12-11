@@ -20,10 +20,13 @@ public class Client {
         String res;
         printWriter.println(uuid);
         printWriter.flush();
+        String strServer;
         while (!str.equals("3")){
-            String strServer= bufferedReader.readLine();
-            System.out.println(strServer);
-            System.out.println("write choice : ");
+            for (int i=0;i<4;i++)
+            {
+                strServer = bufferedReader.readLine();
+                System.out.println(strServer);
+            }
             str = scanner.nextLine();
             printWriter.println(str);
             printWriter.flush();
@@ -32,8 +35,11 @@ public class Client {
                 System.out.println(res);
             }else if(str.equals("1")){
                 for (int i=1;i<=3;i++) {
-                    res = bufferedReader.readLine();
-                    System.out.println(res);
+                    for (int j = 0 ; j < 4 ; j++)
+                    {
+                        res = bufferedReader.readLine();
+                        System.out.println(res);
+                    }
                     str1 = scanner.nextLine();
                     printWriter.println(str1);
                     printWriter.flush();

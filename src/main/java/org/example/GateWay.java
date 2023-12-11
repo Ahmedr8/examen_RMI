@@ -15,15 +15,12 @@ public class GateWay {
     public static void main(String[] args) throws IOException {
         ServerSocket serversocket= new ServerSocket(5001);
         ExecutorService pool = Executors.newFixedThreadPool(4);
-        while (true) {
-
-
+        while (true)
+        {
             Socket socket = serversocket.accept();
             ClientHandler socket_service = new ClientHandler(socket);
             pool.execute(socket_service);
             GateWay.users.add(socket_service);
-
-
         }
 
     }

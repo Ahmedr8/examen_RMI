@@ -11,12 +11,14 @@ import java.util.ArrayList;
 
 public class JeuxImpl implements JeuxInterface {
     static HashMap<String, History> histories = new HashMap<>();
+    static HashMap<String,String> all = new HashMap<>();
      public boolean initClientUuid(String uuid){
+
         History history = new History(0,0,0);
+         System.out.println("INIT"+history);
         Game game = new Game(0,0,0);
         history.getGames().add(game);
         histories.put(uuid,history);
-         System.out.println(histories.isEmpty());
         return true;
     }
 
@@ -36,8 +38,9 @@ public class JeuxImpl implements JeuxInterface {
         System.out.println(uuid);
         // TO SEE LATER WHETHER TO ADD \n or NOT
         History history = histories.get(uuid);
-        System.out.println(histories.isEmpty());
         System.out.println(history);
+        System.out.println(histories.isEmpty());
+        System.out.println("GAGNANT_DET: "+history);
         int nb_game = history.getGames().size();
         System.out.println(nb_game);
         Game game = history.getGames().get(nb_game-1);
@@ -75,6 +78,7 @@ public class JeuxImpl implements JeuxInterface {
         }
         System.out.println("res="+res);
         History history = histories.get(uuid);
+        System.out.println("SCORE:" +history);
         if (res == 1) {
             history.setW(history.getW() + 1);
         } else {
@@ -89,21 +93,28 @@ public class JeuxImpl implements JeuxInterface {
         return res;
     }
     public String showHistory(String uuid){
+
         StringBuilder result = new StringBuilder();
         History history = histories.get(uuid);
+        System.out.println("SHOW HISTORY:"+history);
         result.append("History:\n").append("Games Total Score:").append(history.getW()).append("W\t").append(history.getL()).append("L\t").append(history.getD()).append("D\n");
         ArrayList<Game> games = history.getGames();
         int nbGame = 1;
-        int nbRound = 1;
+        int nbRound;
         for(Game game : games){
-           ArrayList<String> rounds = game.getRounds();
-            result.append("[GAME ").append(nbGame).append("]\n");
-            result.append("Score: ").append(game.getwRound()).append("W\t").append(game.getlRound()).append("L\t").append(game.getdRound()).append("D\n");
-            nbGame++;
-            for(String round : rounds){
-            result.append("[ROUND ").append(nbRound).append("]").append(round).append("\n");
-            nbRound++;
-           }
+            nbRound = 1;
+            if (!game.equals(games.get(games.size()-1)))
+            {
+                ArrayList<String> rounds = game.getRounds();
+                result.append("[GAME ").append(nbGame).append("]\n");
+                result.append("Score: ").append(game.getwRound()).append("W\t").append(game.getlRound()).append("L\t").append(game.getdRound()).append("D\n");
+                nbGame++;
+                for (String round : rounds)
+                {
+                    result.append("[ROUND ").append(nbRound).append("]").append(round).append("\n");
+                    nbRound++;
+                }
+            }
         }
         return result.toString();
      }
