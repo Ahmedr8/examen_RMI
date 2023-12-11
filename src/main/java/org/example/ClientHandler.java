@@ -38,11 +38,11 @@ public class ClientHandler extends Thread{
 
         printWriter.println("Donner votre available_choices");
         printWriter.flush();
-        printWriter.println("1-Jouer Pierre \uD83D\uDDFF | Papier \uD83D\uDCC4 | Ciseaux ✂.");
+        printWriter.println("1-Jouer Pierre \uD83D\uDDFF | Papier \uD83D\uDCC4 | Ciseaux ✂");
         printWriter.flush();
-        printWriter.println("2-Connaître l'historique des parties.");
+        printWriter.println("2-Connaître l'historique des parties \uD83D\uDCD6");
         printWriter.flush();
-        printWriter.println("3-Quitter");
+        printWriter.println("3-Quitter \uD83D\uDEAA");
         printWriter.flush();
         return bufferReader.readLine();
     }

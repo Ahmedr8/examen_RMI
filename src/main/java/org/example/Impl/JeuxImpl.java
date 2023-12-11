@@ -19,7 +19,7 @@ public class JeuxImpl extends UnicastRemoteObject  implements JeuxInterface {
     }
 
     public boolean initClientUuid(String uuid) throws RemoteException{
-
+        System.out.println("[initClientUuid]: client créé avec l'id: "+uuid);
         History history = new History(0,0,0);
          System.out.println("INIT"+history);
         Game game = new Game(0,0,0);
@@ -31,6 +31,19 @@ public class JeuxImpl extends UnicastRemoteObject  implements JeuxInterface {
     @Override
     public String choice_gen() throws RemoteException{
         int randomNumber = new Random().nextInt(3)+1;
+        String Msg_log="[choice_gen]: le serveur a généré le choix ";
+        switch (randomNumber){
+            case 1:
+                Msg_log=Msg_log.concat("Pierre \uD83D\uDDFF");
+                break;
+            case 2:
+                Msg_log=Msg_log.concat("Papier \uD83D\uDCC4");
+                break;
+            case 3:
+                Msg_log=Msg_log.concat("Ciseaux ✂");
+                break;
+        }
+        System.out.println(Msg_log);
         return String.format ("%04d", randomNumber);
     }
 
@@ -41,19 +54,12 @@ public class JeuxImpl extends UnicastRemoteObject  implements JeuxInterface {
         2=papier
         3=Ciseaux
          */
-        System.out.println(uuid);
-        // TO SEE LATER WHETHER TO ADD \n or NOT
+        System.out.println("[gagnant_det] le serveur détermine le gagnant de la round pour l'utilisateur "+uuid);
         History history = histories.get(uuid);
-        System.out.println(history);
-        System.out.println(histories.isEmpty());
-        System.out.println("GAGNANT_DET: "+history);
         int nb_game = history.getGames().size();
-        System.out.println(nb_game);
         Game game = history.getGames().get(nb_game-1);
-        System.out.println(game);
-        String[] items = {"Pierre","Papier","Ciseaux"};
-        String roundGuesser = "USER : " + items[x-1] + " BOT :" + items[y-1];
-        System.out.println(roundGuesser);
+        String[] items = {"Pierre","Feuille","Ciseaux"};
+        String roundGuesser = "USER :" + items[x-1] + " BOT :" + items[y-1];
         if(x==1 && y==3 || x==2 && y==1 || x==3 && y==2){
             roundGuesser+= " --> USER WINS" ;
             game.getRounds().add(roundGuesser);
@@ -74,6 +80,7 @@ public class JeuxImpl extends UnicastRemoteObject  implements JeuxInterface {
 
     @Override
     public int score(int x, int y,String uuid) throws RemoteException {
+        System.out.println("[score] Le serveur détermine le gagnant de la partie pour l'utilisateur"+uuid);
         int res= 0;
         if (x>y) {
             res= 1;
@@ -82,9 +89,7 @@ public class JeuxImpl extends UnicastRemoteObject  implements JeuxInterface {
         }else {
             res= 2;
         }
-        System.out.println("res="+res);
         History history = histories.get(uuid);
-        System.out.println("SCORE:" +history);
         if (res == 1) {
             history.setW(history.getW() + 1);
         } else {
@@ -99,7 +104,7 @@ public class JeuxImpl extends UnicastRemoteObject  implements JeuxInterface {
         return res;
     }
     public String showHistory(String uuid) throws RemoteException {
-
+        System.out.println("[showHistory] le serveur montre l'historique pour le client "+uuid);
         StringBuilder result = new StringBuilder();
         History history = histories.get(uuid);
         System.out.println("SHOW HISTORY:"+history);
