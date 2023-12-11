@@ -13,11 +13,21 @@ public class Client {
         String str="";  String str1="";
         String uuid = UUID.randomUUID().toString();
         Scanner scanner = new Scanner(System.in);
+
         Socket socket = new Socket("localhost", 5001);
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
         InputStreamReader in= new InputStreamReader(socket.getInputStream());
         BufferedReader bufferedReader = new BufferedReader(in);
         String res;
+        String middlewareOptions;
+        int game_number;
+        for(int i =  0 ; i < 3 ; i++){
+            middlewareOptions = bufferedReader.readLine();
+            System.out.println(middlewareOptions);
+        }
+        str = scanner.nextLine();
+        printWriter.println(str);
+        printWriter.flush();
         printWriter.println(uuid);
         printWriter.flush();
         String strServer;
@@ -33,8 +43,18 @@ public class Client {
             if(str.equals("3")){
                 res = bufferedReader.readLine();
                 System.out.println(res);
-            }else if(str.equals("1")){
-                for (int i=1;i<=3;i++) {
+            }
+            else if(str.equals("2")){
+                //HISTORY
+                res = bufferedReader.readLine();
+                game_number=Integer.parseInt(res);
+                for (int i=1;i<=game_number*5+2;i++){
+                    res = bufferedReader.readLine();
+                    System.out.println(res);
+                }
+            }
+            else if(str.equals("1")){
+                for (int i=0;i<3;i++) {
                     for (int j = 0 ; j < 4 ; j++)
                     {
                         res = bufferedReader.readLine();
@@ -43,12 +63,10 @@ public class Client {
                     str1 = scanner.nextLine();
                     printWriter.println(str1);
                     printWriter.flush();
-                    res = bufferedReader.readLine();
-                    System.out.println(res);
-                    res = bufferedReader.readLine();
-                    System.out.println(res);
-                    res = bufferedReader.readLine();
-                    System.out.println(res);
+                    for (int j = 0 ; j < 2 ; j++){
+                        res = bufferedReader.readLine();
+                        System.out.println(res);
+                    }
                 }
                 res=bufferedReader.readLine();
                 System.out.println(res);

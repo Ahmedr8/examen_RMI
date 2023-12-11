@@ -10,8 +10,9 @@ import java.rmi.registry.LocateRegistry;
 
 public class ServerRmi {
  public static void main(String[] args) throws RemoteException, MalformedURLException{
-     LocateRegistry.createRegistry(5006);
+     LocateRegistry.createRegistry(5005);
      JeuxImpl jeuxImpl = new JeuxImpl();
-     Naming.rebind("rmi://localhost:5006/Jeux/PFC", (Remote) jeuxImpl);
+     Naming.rebind("rmi://localhost:5005/Jeux/PFC", jeuxImpl);
+
  }
 }

@@ -4,15 +4,21 @@ import org.example.contract.JeuxInterface;
 import org.example.model.Game;
 import org.example.model.History;
 
+import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
-import java.util.ArrayList;
+import java.rmi.RemoteException;
+import java.rmi.Remote;
 
-public class JeuxImpl implements JeuxInterface {
+public class JeuxImpl extends UnicastRemoteObject  implements JeuxInterface {
     static HashMap<String, History> histories = new HashMap<>();
     static HashMap<String,String> all = new HashMap<>();
-     public boolean initClientUuid(String uuid){
+
+    public JeuxImpl() throws RemoteException {
+    }
+
+    public boolean initClientUuid(String uuid) throws RemoteException{
 
         History history = new History(0,0,0);
          System.out.println("INIT"+history);
@@ -23,13 +29,13 @@ public class JeuxImpl implements JeuxInterface {
     }
 
     @Override
-    public String choice_gen() {
+    public String choice_gen() throws RemoteException{
         int randomNumber = new Random().nextInt(3)+1;
         return String.format ("%04d", randomNumber);
     }
 
     @Override
-    public int gagnant_det(int x, int y,String uuid,int num_round) {
+    public int gagnant_det(int x, int y,String uuid,int num_round) throws RemoteException {
         /*
         1=pierre
         2=papier
@@ -67,7 +73,7 @@ public class JeuxImpl implements JeuxInterface {
     }
 
     @Override
-    public int score(int x, int y,String uuid) {
+    public int score(int x, int y,String uuid) throws RemoteException {
         int res= 0;
         if (x>y) {
             res= 1;
@@ -92,7 +98,7 @@ public class JeuxImpl implements JeuxInterface {
         history.getGames().add(game);
         return res;
     }
-    public String showHistory(String uuid){
+    public String showHistory(String uuid) throws RemoteException {
 
         StringBuilder result = new StringBuilder();
         History history = histories.get(uuid);
