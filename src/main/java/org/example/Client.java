@@ -63,7 +63,7 @@ public class Client {
                     str1 = scanner.nextLine();
                     printWriter.println(str1);
                     printWriter.flush();
-                    for (int j = 0 ; j < 2 ; j++){
+                    for (int j = 0 ; j < 3 ; j++){
                         res = bufferedReader.readLine();
                         System.out.println(res);
                     }

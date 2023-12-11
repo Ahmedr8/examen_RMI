@@ -90,18 +90,23 @@ public class ClientHandler extends Thread{
         boolean test;
         int res_finale,user_win_rounds,bot_win_rounds;
         int game_number=0;
+        try {
+            middlewareMode = chooseMode();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
         while (!socket.isClosed()) {
             try {
-                middlewareMode = chooseMode();
+
                 if (uuid.isEmpty()) {
                     uuid = bufferReader.readLine();
-                }
-                    if(middlewareMode.equals("1"))
-                        test = (boolean)client.execute("Calculator." + "initClientUuid", new Object[]{uuid});
+                    if (middlewareMode.equals("1"))
+                        test = (boolean) client.execute("Calculator." + "initClientUuid", new Object[]{uuid});
                     else {
-                        if (game_stub!=null)
+                        if (game_stub != null)
                             game_stub.initClientUuid(uuid);
                     }
+                }
                     menu_option = chooseMenuOption();
                     int available_choices_menu=Integer.parseInt(menu_option);
                     switch(available_choices_menu){
