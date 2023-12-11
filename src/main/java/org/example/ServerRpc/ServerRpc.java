@@ -12,17 +12,9 @@ public class ServerRpc {
             XmlRpcException, IOException {
 
         WebServer webServer = new WebServer(5005);
-        XmlRpcServer xmlRpcServer =
-
-                webServer.getXmlRpcServer();
-
-        PropertyHandlerMapping phm = new
-
-                PropertyHandlerMapping();
-
-        phm.addHandler("Calculator",
-                JeuxImpl.class);
-
+        XmlRpcServer xmlRpcServer = webServer.getXmlRpcServer();
+        PropertyHandlerMapping phm = new PropertyHandlerMapping();
+        phm.addHandler("Calculator",JeuxImpl.class);
         xmlRpcServer.setHandlerMapping(phm);
         webServer.start();
         System.out.println("Server is running...");

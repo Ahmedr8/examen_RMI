@@ -5,18 +5,21 @@ import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
-
+import java.util.UUID;
 public class Client {
 
 
     public static void main(String[] args) throws IOException {
-        String str="",str1="";
+        String str="";  String str1="";
+        String uuid = UUID.randomUUID().toString();
         Scanner scanner = new Scanner(System.in);
-        Socket socket = new Socket("localhost",5001);
+        Socket socket = new Socket("localhost", 5001);
         PrintWriter printWriter = new PrintWriter(socket.getOutputStream());
         InputStreamReader in= new InputStreamReader(socket.getInputStream());
         BufferedReader bufferedReader = new BufferedReader(in);
         String res;
+        printWriter.println(uuid);
+        printWriter.flush();
         while (!str.equals("3")){
             String strServer= bufferedReader.readLine();
             System.out.println(strServer);
@@ -45,12 +48,8 @@ public class Client {
                 System.out.println(res);
 
             }
-
-
-
-            String strServerRes= bufferedReader.readLine();
-            System.out.println("server result method :"+strServerRes);
         }
 
     }
 }
+
