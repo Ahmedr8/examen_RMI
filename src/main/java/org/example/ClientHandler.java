@@ -15,6 +15,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class ClientHandler extends Thread{
+    final String CYAN = "\u001B[36m";
+    final String RED = "\u001B[31m";
+    String GREEN = "\u001B[32m";
+    String YELLOW = "\u001B[33m";
+    String RESET = "\u001B[0m";
     Socket socket;
     InputStreamReader in;
     BufferedReader bufferReader;
@@ -47,7 +52,7 @@ public class ClientHandler extends Thread{
         return bufferReader.readLine();
     }
     public String readUserRoundChoice(int round_number) throws IOException {
-        printWriter.println("[ROUND " + round_number + "]");
+        printWriter.println(CYAN + "[ROUND " + round_number + "]" + RESET);
         printWriter.flush();
         printWriter.println("1-Pierre \uD83D\uDDFF");
         printWriter.flush();
@@ -116,7 +121,7 @@ public class ClientHandler extends Thread{
                             bot_win_rounds = 0;
                             for (int i = 1; i <= 3; i++) {
                                 user_choice = readUserRoundChoice(i);
-                                printWriter.println("USER 👨:" + available_choices.get(user_choice));
+                                printWriter.println(GREEN + "USER 👨:" + RESET + available_choices.get(user_choice));
                                 printWriter.flush();
                                 if(middlewareMode.equals("1")) {
                                     bot_choice = (String) client.execute("Calculator." + "choice_gen", new Object[]{});
@@ -130,7 +135,7 @@ public class ClientHandler extends Thread{
                                 }
                                 bot_choice_to_int = Integer.parseInt(bot_choice);
                                 bot_choice = String.valueOf(bot_choice_to_int);
-                                printWriter.println("BOT \uD83E\uDD16:" + available_choices.get(bot_choice));
+                                printWriter.println(RED  + "BOT" + RESET + "\uD83E\uDD16:" + available_choices.get(bot_choice));
                                 printWriter.flush();
                                 user_choice_to_int = Integer.parseInt(user_choice);
                                 if (middlewareMode.equals("1")){
@@ -144,7 +149,7 @@ public class ClientHandler extends Thread{
                                     else
                                         gagnant = -1;
                                 }
-                                printWriter.println("LE GAGNANT DE CE ROUND EST " + (gagnant == 1 ? "USER 👨" : "BOT \uD83E\uDD16"));
+                                printWriter.println("LE GAGNANT DE CE ROUND EST " + (gagnant == 1 ? GREEN + " USER" + RESET + "👨" : RED + "BOT" + RESET +" \uD83E\uDD16"));
                                 printWriter.flush();
                                 if (gagnant == 1)
                                     user_win_rounds++;
@@ -166,7 +171,7 @@ public class ClientHandler extends Thread{
                                 else
                                     res_finale = -1;
                             }
-                            printWriter.println("LE GAGNANT FINALE EST : " + (res_finale == 1 ? "USER 👨" : "BOT \uD83E\uDD16"));
+                            printWriter.println("LE GAGNANT FINALE EST : " + (res_finale == 1 ?  GREEN  + "USER" + RESET + "👨" : RED + "BOT" + RESET + "\uD83E\uDD16"));
                             printWriter.flush();
                             break;
 
@@ -176,12 +181,24 @@ public class ClientHandler extends Thread{
                             {
                                 historique = (String) client.execute("Calculator." + "showHistory", new
                                         Object[]{uuid});
+
                             }
                             else
                             {
                                 if(game_stub != null)
                                     historique = game_stub.showHistory(uuid);
                             }
+                            historique = historique
+                                    .replace("u001B","\u001B")
+                                    .replace(" uDC68","\uDC68")
+                                    .replace(" uDD16","\uDD16")
+                                    .replace("uD83D","\uD83D")
+                                    .replace(" uDDFF","\uDDFF")
+                                    .replace(" uDCC4","\uDCC4")
+                                    .replace("u2702","✂")
+                                    .replace("uD83E","\uD83E");
+
+
                             printWriter.println(game_number);
                             printWriter.flush();
                             for (int i=1;i<=game_number*5+2;i++){
