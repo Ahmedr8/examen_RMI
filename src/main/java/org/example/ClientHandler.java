@@ -149,13 +149,17 @@ public class ClientHandler extends Thread{
                                     else
                                         gagnant = -1;
                                 }
-                                printWriter.println("LE GAGNANT DE CE ROUND EST " + (gagnant == 1 ? GREEN + " USER" + RESET + "👨" : RED + "BOT" + RESET +" \uD83E\uDD16"));
-                                printWriter.flush();
-                                if (gagnant == 1)
-                                    user_win_rounds++;
-                                else if (gagnant == 2)
-                                    bot_win_rounds++;
+                                if (gagnant == 1){
+                                    printWriter.println("LE GAGNANT DE CE ROUND EST " + GREEN + " USER" + RESET + "👨");
+                                    printWriter.flush();
+                                    user_win_rounds++;}
+                                else if (gagnant == 2){
+                                    printWriter.println("LE GAGNANT DE CE ROUND EST " +  RED + "BOT" + RESET +" \uD83E\uDD16");
+                                    printWriter.flush();
+                                    bot_win_rounds++;}
                                 else {
+                                    printWriter.println("RESULTAT DE ROUND EST "+YELLOW+"DRAW ");
+                                    printWriter.flush();
                                     user_win_rounds++;
                                     bot_win_rounds++;
                                 }

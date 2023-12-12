@@ -66,7 +66,11 @@ public class Client {
                         res = bufferedReader.readLine();
                         System.out.println(res);
                     }
-                    str1 = scanner.nextLine();
+                    do {
+                        System.out.println("donnez un choix valable:");
+                        str1 = scanner.nextLine();
+                    }while (!(str1.equals("1") || (str1.equals("2"))|| (str1.equals("3"))));
+
                     printWriter.println(str1);
                     printWriter.flush();
                     for (int j = 0 ; j < 3 ; j++){
